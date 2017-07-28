@@ -1,2 +1,2 @@
 # reeleezee-api-go
-Sample client code for the Reeleezee API in Python 
+Sample client code for the Reeleezee API in Go 
