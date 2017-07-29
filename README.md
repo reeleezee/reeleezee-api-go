@@ -7,6 +7,5 @@ This repository contains sample code for the Reeleezee API. These samples are ex
 To run the sample programs you need to:
 
 - Have a [Reeleezee administration](https://www.reeleezee.nl)
-```
 
 After that you're all set to run the samples.
