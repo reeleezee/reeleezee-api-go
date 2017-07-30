@@ -40,6 +40,20 @@ func createRequest(method, urlStr, authorization string, body []byte) *http.Requ
 	return req
 }
 
+func (ac *ApiClient) handleRequest(method string, route string, data []byte) (int, []byte) {
+	req := createRequest(method, ac.uri+route, ac.authorization, data)
+	resp, err := ac.client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+
+	defer resp.Body.Close()
+	ac.IsJSON = strings.Contains(resp.Header.Get("Content-Type"), "application/json")
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	return resp.StatusCode, body
+}
+
 func (ac *ApiClient) Init(uri string, userName string, password string) {
 	ac.uri = uri
 	ac.authorization = base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", userName, password)))
@@ -47,29 +61,9 @@ func (ac *ApiClient) Init(uri string, userName string, password string) {
 }
 
 func (ac *ApiClient) Get(route string) (int, []byte) {
-	req := createRequest("GET", ac.uri+route, ac.authorization, nil)
-	resp, err := ac.client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-
-	defer resp.Body.Close()
-	ac.IsJSON = strings.Contains(resp.Header.Get("Content-Type"), "application/json")
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	return resp.StatusCode, body
+	return ac.handleRequest("GET", route, nil)
 }
 
 func (ac *ApiClient) Put(route string, data []byte) (int, []byte) {
-	req := createRequest("PUT", ac.uri+route, ac.authorization, data)
-	resp, err := ac.client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-
-	defer resp.Body.Close()
-	ac.IsJSON = strings.Contains(resp.Header.Get("Content-Type"), "application/json")
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	return resp.StatusCode, body
+	return ac.handleRequest("PUT", route, data)
 }
