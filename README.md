@@ -1,5 +1,5 @@
 # reeleezee-api-go
-This repository contains sample code for the Reeleezee API. These samples are explained at the [Reeleezee API Documentation ](http://developer.reeleezee.nl/docs/api/) site.
+This repository contains sample code for the Reeleezee API. These samples are explained at the [Reeleezee API Documentation ](https://www.reeleezee.nl/developer/docs/api/) site.
 
 **Note**: the samples are a Go learning project and designed for educational purposes.
 
